@@ -52,6 +52,13 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/oldPlayers/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await oldPlayersCollection.findOne(query);
+      res.send(result);
+    });
+
     app.post("/oldPlayers", async (req, res) => {
       const player = req.body;
       console.log(player);
