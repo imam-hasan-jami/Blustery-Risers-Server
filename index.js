@@ -38,12 +38,12 @@ async function run() {
       res.send(user);
     });
 
-    app.post("/users", async (req, res) => {
-      const user = req.body;
-      console.log(user);
-      const result = await usersCollection.insertOne(user);
-      res.send(result);
-    });
+    // app.post("/users", async (req, res) => {
+    //   const user = req.body;
+    //   console.log(user);
+    //   const result = await usersCollection.insertOne(user);
+    //   res.send(result);
+    // });
 
     // old players related apis
 
