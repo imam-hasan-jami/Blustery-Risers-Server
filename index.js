@@ -21,7 +21,9 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
+
     const usersCollection = client.db("blusteryRisers").collection("users");
+    const playersCollection = client.db("blusteryRisers").collection("players");
     const oldPlayersCollection = client.db("blusteryRisers").collection("oldPlayers");
 
     // users related apis
@@ -44,6 +46,22 @@ async function run() {
     //   const result = await usersCollection.insertOne(user);
     //   res.send(result);
     // });
+
+
+    // current players related apis
+
+    app.get("/players", async (req, res) => {
+      const result = await playersCollection.find().toArray();
+      res.send(result);
+    });
+
+    app.post("/players", async (req, res) => {
+      const player = req.body;
+      // console.log(player);
+      const result = await playersCollection.insertOne(player);
+      res.send(result);
+    });
+
 
     // old players related apis
 
