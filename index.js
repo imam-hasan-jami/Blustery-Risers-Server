@@ -55,6 +55,13 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/players/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await playersCollection.findOne(query);
+      res.send(result);
+    });
+
     app.post("/players", async (req, res) => {
       const player = req.body;
       // console.log(player);
@@ -62,6 +69,29 @@ async function run() {
       res.send(result);
     });
 
+    app.put("/players/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updatedPlayer = req.body;
+      const updatedDoc = {
+        $set: updatedPlayer,
+      };
+
+      const result = await playersCollection.updateOne(
+        filter,
+        updatedDoc,
+        options
+      );
+      res.send(result);
+    });
+
+    app.delete("/players/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await playersCollection.deleteOne(query);
+      res.send(result);
+    });
 
     // old players related apis
 
